@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {
   BsFillPersonFill as PersonIcon,
@@ -14,6 +13,7 @@ import AuthenticationService from '../../services/AuthenticationService';
 import useError from '../../hooks/useError';
 import isEmailValid from '../../utils/isEmailValid';
 import formatPhone from '../../utils/phoneFormater';
+import toast from '../../utils/toast';
 
 import { Container, HaveAccount } from './styles';
 
@@ -29,6 +29,8 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     getErrorMensageByFieldName, removeErrors, setErrors, error,
@@ -113,8 +115,12 @@ export default function Register() {
       await AuthenticationService.Register({
         username, email, phone, password,
       });
+
+      toast('success', 'Usuario registrado com exito!');
+
+      navigate('/login');
     } catch (err) {
-      alert(err);
+      toast('danger', err.message);
     }
   }
 

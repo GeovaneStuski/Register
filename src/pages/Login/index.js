@@ -19,6 +19,8 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import isEmailValid from '../../utils/isEmailValid';
 
+import toast from '../../utils/toast';
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -57,7 +59,7 @@ export default function Login() {
 
       localStorage.setItem('access-token', response.token);
     } catch (err) {
-      alert(err);
+      toast('danger', err.message);
     }
   }
 
