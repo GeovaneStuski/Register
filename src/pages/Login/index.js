@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import {
@@ -27,6 +27,8 @@ export default function Login() {
 
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
   const [remember, setRemember] = useState(false);
+
+  const navigate = useNavigate();
 
   const { setErrors, removeErrors, getErrorMensageByFieldName } = useError();
 
@@ -58,6 +60,8 @@ export default function Login() {
       });
 
       localStorage.setItem('access-token', response.token);
+      toast('success', 'Usuario logado');
+      navigate('/');
     } catch (err) {
       toast('danger', err.message);
     }

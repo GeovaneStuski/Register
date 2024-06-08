@@ -3,10 +3,24 @@ class HttpClient {
     this.baseUrl = baseUrl;
   }
 
+  async get(path, token) {
+    const response = this.makeRequest(path, {
+      method: 'GET',
+      headers: {
+        authorization: token,
+      },
+    });
+
+    return response;
+  }
+
   async post(path, body) {
     const response = this.makeRequest(path, {
       method: 'POST',
       body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     return response;
@@ -15,10 +29,8 @@ class HttpClient {
   async makeRequest(path, options) {
     const response = await fetch(`${this.baseUrl}${path}`, {
       method: options.method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(options.body),
+      headers: options.headers,
+      body: options.body && JSON.stringify(options.body),
     });
 
     let body = null;

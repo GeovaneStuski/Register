@@ -21,6 +21,7 @@ export default styled.div`
   border-radius: 8px;
   padding: 16px 32px;
   font-size: 18px;
+  cursor: pointer;
   ${({ type }) => ToastVariants[type] || ToastVariants.default};
   &+& {
     margin-top: 16px;

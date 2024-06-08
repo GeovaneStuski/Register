@@ -5,6 +5,12 @@ class AuthenticationService {
     this.HttpClient = new HttpClient('http://localhost:3002');
   }
 
+  async Authenticator(token) {
+    const response = await this.HttpClient.get('/', token);
+
+    return response;
+  }
+
   async Login(loginForm) {
     const response = await this.HttpClient.post('/login', loginForm);
 
